@@ -57,11 +57,17 @@ public class BootScene : MonoBehaviour
 		if (PlayMode == YooAssets.EPlayMode.HostPlayMode)
 		{
 			var createParameters = new YooAssets.HostPlayModeParameters();
+			//new DefaultLocationServices("Assets/GameRes") 基于根目录的资源加载方式；提供一个相对路径即可。
 			createParameters.LocationServices = new DefaultLocationServices("Assets/GameRes");
+			//用于解密
 			createParameters.DecryptionServices = null;
+			//安卓上第一次覆盖安装时，清除缓存；
 			createParameters.ClearCacheWhenDirty = false;
+			//默认CDN的URL
 			createParameters.DefaultHostServer = GetHostServerURL();
+			//备用的CDN的URL
 			createParameters.FallbackHostServer = GetHostServerURL();
+			//验证等级
 			createParameters.VerifyLevel = EVerifyLevel.High;
 			yield return YooAssets.InitializeAsync(createParameters);
 		}
